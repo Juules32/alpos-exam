@@ -16,7 +16,7 @@ def is_hill_number(n_str):
 # n_str is n cast to a string
 # index is the current n_str index
 # prev_digit is ... the previous digit of n
-# is_peaked denotes whether the constructed number has begun descending
+# is_desc denotes whether the constructed number has begun descending
 # is_maxed denotes whether the current digit ('d' in the code) has reached the value of the original digit at that position
 @cache
 def dp(n_str, index, prev_digit, is_desc, is_maxed):
