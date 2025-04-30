@@ -30,7 +30,7 @@ class Trie:
         count = count_valid_indices(current.word_indices, word_index)
 
         for char in query:
-            if len(current.children) == 0:
+            if len(current.children) == 0 or char not in current.children:
                 break
             else:
                 current = current.children[char]
