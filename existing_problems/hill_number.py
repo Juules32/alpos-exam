@@ -31,7 +31,7 @@ def dp(n_str, index, prev_digit, is_desc, is_maxed):
         if not is_desc:
             if d >= prev_digit:
                 total += dp(n_str, index + 1, d, False, new_maxed)
-            elif d < prev_digit:
+            else:
                 total += dp(n_str, index + 1, d, True, new_maxed)
         else:
             if d <= prev_digit:
