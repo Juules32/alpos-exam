@@ -1,2 +1,6 @@
 1
 target
+bennysbiggestband_html
+bennysbiggestband.pdf
+original_problem/bennysbiggestband/data/secret/*
+!original_problem/bennysbiggestband/data/secret/.gitkeep
