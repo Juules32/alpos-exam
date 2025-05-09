@@ -1,3 +1,5 @@
+# https://open.kattis.com/problems/baza
+
 from collections import defaultdict
 from bisect import bisect_right
 
@@ -24,7 +26,7 @@ class Trie:
             current = current.children[char]
             current.word_indices.append(word_index)
 
-    def count_thingies(self, query) -> int:
+    def count_instructions(self, query) -> int:
         word_index = word_idx[query] if query in word_idx else float('inf')        
         current = self.root
         count = count_valid_indices(current.word_indices, word_index)
@@ -48,4 +50,4 @@ for index in range(int(input())):
 
 for _ in range(int(input())):
     query = input()
-    print(trie.count_thingies(query))
+    print(trie.count_instructions(query))
