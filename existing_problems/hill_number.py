@@ -23,19 +23,17 @@ def dp(n_str, index, prev_digit, is_desc, is_maxed):
     if index == len(n_str):
         return 1
 
-    limit = int(n_str[index]) if is_maxed else 9
     total = 0
+    limit = int(n_str[index]) if is_maxed else 9
 
     for d in range(0, limit + 1):
-        new_maxed = is_maxed and (d == limit)
-        if not is_desc:
-            if d >= prev_digit:
-                total += dp(n_str, index + 1, d, False, new_maxed)
-            else:
-                total += dp(n_str, index + 1, d, True, new_maxed)
-        else:
-            if d <= prev_digit:
-                total += dp(n_str, index + 1, d, True, new_maxed)
+        if is_desc and d > prev_digit:
+            continue
+
+        new_is_desc = is_desc or d < prev_digit
+        new_is_maxed = is_maxed and d == limit
+
+        total += dp(n_str, index + 1, d, new_is_desc, new_is_maxed)
 
     return total
 
