@@ -17,16 +17,22 @@ def generate_secret_input_file(M, I, R, file_in):
     with open(file_in, "w") as f:
         f.write(str(M) + " " + str(I) + " " + str(R) + "\n")
 
-        instruments = set()
-        for _ in range(I):
-            curr = str(uuid.uuid1())
-            instruments.add(curr)
+        instruments = [str(uuid.uuid1()) for _ in range(I)]
+        musician_names = [str(uuid.uuid1()) for _ in range(M)]
+        musician_to_instruments: dict[str, set[str]] = {m: set() for m in musician_names}
 
-        for _ in range(M):
-            curr = str(uuid.uuid1())
+        # Ensure every instrument is played by at least one musician
+        for instr in instruments:
+            chosen_musician = random.choice(musician_names)
+            musician_to_instruments[chosen_musician].add(instr)
+
+        # Add a randomly sized subset of instruments played to each musician
+        for m in musician_names:
             sample_instr = random.sample(list(instruments), max(1, random.randint(1, I) - random.randint(1, I)))
-            f.write(curr + " " + " ".join(sample_instr) + "\n")
+            musician_to_instruments[m] = musician_to_instruments[m].union(sample_instr)
+            f.write(m + " " + " ".join(musician_to_instruments[m]) + "\n")
 
+        # Write out each intrument count and ranges
         for i in instruments:
             num_inst = max(M, random.randint(0, M) - random.randint(0, M // 2))
             num_ranges = max(R, random.randint(1, R) - random.randint(1, R))
