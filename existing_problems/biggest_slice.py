@@ -21,5 +21,3 @@ for _ in range(m):
 
     area = math.pi * r ** 2 * ((upper_bound - lower_bound) / 360)
     print(area)
-
-
