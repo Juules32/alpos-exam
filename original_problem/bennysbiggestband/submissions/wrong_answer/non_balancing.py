@@ -1,4 +1,5 @@
 from collections import defaultdict
+from copy import deepcopy
 
 def dfs(curr, t, graph, seen, path):
     if curr == t:
@@ -17,21 +18,19 @@ def dfs(curr, t, graph, seen, path):
     return None
 
 
-def flow(s, t, G, range_graph_indices):
+def flow(s, t, G, sink_capacity):
     residual = defaultdict(lambda: defaultdict(int))
 
     for k, v in G.items():
         for g, u in v.items():
-            residual[k][g] = u
+            if g == t: # If the destination node is the sink, set it to the current sink capacity
+                residual[k][g] = sink_capacity
+            else:
+                residual[k][g] = u
             residual[g][k] = 0
 
     flow = 0
     while True:
-        # maintain balance; when r flow is found allow more flow from each range
-        if flow % len(range_graph_indices) == 0:
-            for val in range_graph_indices:
-                residual[val][t] = 1
-
         path = dfs(s, t, residual, set(), (float("inf"), [s]))
         if path:
             flow += path[0]
@@ -72,14 +71,12 @@ for instrument in instruments.values():
         G[graph_index_out][range_graph_index] = instrument[1]
 
 sink_index = m + i + r + 3
-range_graph_indices = set()
 for j in range(r):
     range_graph_index = m + i + 2 + j
     G[range_graph_index][sink_index] = 0
-    range_graph_indices.add(range_graph_index)
 
-f, _ = flow(0, sink_index, G, range_graph_indices)
-print((f // r) * r)
+maximum_flow, _ = flow(0, sink_index, G, float('inf'))
+print(maximum_flow)
 
 # Graph indices (up to and including):
 # Source: 0

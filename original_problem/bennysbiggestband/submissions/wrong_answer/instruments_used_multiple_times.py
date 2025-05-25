@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 def dfs(curr, t, graph, seen, path):
     if curr == t:
         return path
@@ -65,11 +66,9 @@ for j in range(len(musicians)):
 
 for instrument in instruments.values():
     graph_index = m + 1 + instrument[0]
-    graph_index_out = -1 * graph_index
-    G[graph_index][graph_index_out] = instrument[1]
     for val in instrument[2]:
         range_graph_index = m + i + 2 + val
-        G[graph_index_out][range_graph_index] = instrument[1]
+        G[graph_index][range_graph_index] = instrument[1]
 
 sink_index = m + i + r + 3
 range_graph_indices = set()
@@ -88,3 +87,4 @@ print((f // r) * r)
 # Instruments out: instruments * -1
 # Ranges: m + i + 2..m + i + r + 2
 # Sink: m + i + r + 3
+
