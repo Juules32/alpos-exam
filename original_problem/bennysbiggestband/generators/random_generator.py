@@ -2,7 +2,7 @@ import random
 import uuid
 import subprocess
 
-M_UPPER = 500
+M_UPPER = 1000
 I_UPPER = 100
 R_UPPER = 10
 
@@ -34,8 +34,8 @@ def generate_secret_input_file(M, I, R, file_in):
 
         # Write out each intrument count and ranges
         for i in instruments:
-            num_inst = max(M, random.randint(0, M) - random.randint(0, M // 2))
-            num_ranges = max(R, random.randint(1, R) - random.randint(1, R))
+            num_inst = max(1, random.randint(0, M) - random.randint(0, M // 2))
+            num_ranges = max(1, random.randint(1, R) - random.randint(1, R))
             ranges = random.sample(range(0, R), num_ranges)
             ranges = map(str, ranges)
             f.write(i + " " + str(num_inst) + " " + " ".join(ranges) + "\n")
@@ -59,3 +59,10 @@ for i in range(100):
     file_ans = DEST_DIR + str(i) + ".ans"
     solve_and_output(file_in, file_ans)
 
+M = M_UPPER
+I = I_UPPER
+R = R_UPPER
+file_in = DEST_DIR + "max" + ".in"
+generate_secret_input_file(M, I, R, file_in)
+file_ans = DEST_DIR + "max" + ".ans"
+solve_and_output(file_in, file_ans)

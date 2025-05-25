@@ -1,5 +1,7 @@
 name: bennysbiggestband
 license: public domain
 limits:
-  output: 10
+  time_multipliers:
+    ac_to_time_limit: 2.0
+    time_limit_to_tle: 1.5
 uuid: 8f974662-ea36-4a3d-831a-d8c7e861c8e7
